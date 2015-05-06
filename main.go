@@ -30,7 +30,7 @@ import (
 var (
 	dsn        = flag.String("dsn", "root@unix(/var/run/mysqld/mysqld.sock)/", "Data Source Name that points to the MySQL server")
 	sleep      = flag.Duration("sleep", time.Second, "How long to sleep between two consecutive polls")
-	jsonOutput = flag.Bool("json", false, "Also output the metrics in JSON format")
+	jsonOutput = flag.Bool("json", false, "Also output the measurements in JSON format")
 )
 
 const (
@@ -153,8 +153,8 @@ WHERE STATUS = 'enabled'
 		var e entry
 		err := rows.Scan(&e.Timestamp, &e.Name, &e.Value)
 		if err != nil {
-			// A small number of metrics are strings or
-			// floats. We are ignoring them for now.
+			// A small number of measurements are strings
+			// or floats. We are ignoring them for now.
 		}
 		m = append(m, e)
 	}
