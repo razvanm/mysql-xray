@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Metric (
 
 	createMeasurementTable = `
 CREATE TABLE IF NOT EXISTS Measurement (
-  ts TEXT,
+  ts INTEGER,
   id INTEGER,
   value INTEGER,
   PRIMARY KEY(ts, id)
@@ -160,7 +160,7 @@ func save(m []entry, nameToId map[string]int64, dblog *sql.DB) error {
 	}
 
 	for _, e := range m {
-		_, err := stmt.Exec(e.Timestamp, nameToId[e.Name], e.Value)
+		_, err := stmt.Exec(e.Timestamp.Unix(), nameToId[e.Name], e.Value)
 		if err != nil {
 			return err
 		}
